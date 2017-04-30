@@ -1,9 +1,16 @@
-FROM elasticsearch:2.3.4
+FROM docker.elastic.co/elasticsearch/elasticsearch:5.3.0
 MAINTAINER Jonathan Roizin <joroizin@gmail.com>
 
-ENV ELASTICSEARCH_ANALYSIS_HEBREW_VERSION 2.3.4
+# install hspell data files,
+# hebmorph requirement
+ENV HEBMORPH_VERSION 5.3.0
+ENV HEBMORPH_FILE hebmorph-lucene-$HEBMORPH_VERSION
+ENV ELASTICSEARCH_ANALYSIS_HEBREW_VERSION 5.3.0
+ENV xpack.security.enabled=false
 
-COPY hspell-data-files /var/lib/hspell-data-files 
+COPY hspell-data-files /var/lib/hspell-data-files
 
 # install hebmorph plugin
-RUN plugin install https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
+RUN elasticsearch-plugin install --verbose https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
+
+EXPOSE 9200
