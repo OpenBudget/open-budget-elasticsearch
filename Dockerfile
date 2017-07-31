@@ -6,10 +6,10 @@ MAINTAINER Jonathan Roizin <joroizin@gmail.com>
 ENV HEBMORPH_VERSION 5.3.0
 ENV HEBMORPH_FILE hebmorph-lucene-$HEBMORPH_VERSION
 ENV ELASTICSEARCH_ANALYSIS_HEBREW_VERSION 5.3.0
-ENV xpack.security.enabled=false
 
 USER root
-RUN echo vm.max_map_count=262144 > /etc/sysctl.d/01-es.conf # sysctl -w vm.max_map_count=262144
+RUN echo vm.max_map_count=262144 > /etc/sysctl.d/01-es.conf 
+RUN echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
 
 USER elasticsearch
 
