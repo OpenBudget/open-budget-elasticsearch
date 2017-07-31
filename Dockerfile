@@ -9,7 +9,7 @@ ENV ELASTICSEARCH_ANALYSIS_HEBREW_VERSION 5.3.0
 
 USER root
 RUN echo vm.max_map_count=262144 > /etc/sysctl.d/01-es.conf 
-RUN echo "xpack.security.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
+RUN echo "xpack.security.enabled: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
 
 USER elasticsearch
 
