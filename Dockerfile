@@ -1,4 +1,4 @@
-FROM elasticsearch:5.3-alpine
+FROM elasticsearch:5.3.0-alpine
 MAINTAINER Jonathan Roizin <joroizin@gmail.com>
 
 # install hspell data files,
@@ -19,8 +19,6 @@ RUN addgroup elasticsearch root
 RUN echo vm.max_map_count=262144 > /etc/sysctl.d/01-es.conf 
 RUN echo "xpack.security.enabled: false" >> /usr/share/elasticsearch/config/elasticsearch.yml
 
-USER elasticsearch
-
 ADD startup.sh /
 
 COPY hspell-data-files /var/lib/hspell-data-files
@@ -28,6 +26,9 @@ COPY hspell-data-files /var/lib/hspell-data-files
 # RUN elasticsearch-plugin remove x-pack
 # install hebmorph plugin
 RUN elasticsearch-plugin install --verbose https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
+
+USER elasticsearch
+
 
 EXPOSE 9200
 
