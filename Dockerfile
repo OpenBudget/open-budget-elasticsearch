@@ -23,7 +23,9 @@ USER elasticsearch
 ADD startup.sh /
 
 COPY hspell-data-files /var/lib/hspell-data-files
+
 # install hebmorph plugin
+RUN elasticsearch-plugin remove x-pack
 RUN elasticsearch-plugin install --verbose https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
 
 EXPOSE 9200
