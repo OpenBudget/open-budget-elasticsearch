@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:5.3.0
+FROM elasticsearch:5.3-alpine
 MAINTAINER Jonathan Roizin <joroizin@gmail.com>
 
 # install hspell data files,
@@ -7,6 +7,7 @@ ENV HEBMORPH_VERSION 5.3.0
 ENV HEBMORPH_FILE hebmorph-lucene-$HEBMORPH_VERSION
 ENV ELASTICSEARCH_ANALYSIS_HEBREW_VERSION 5.3.0
 ENV xpack.security.enabled=false
+ENV xpack.monitoring.enabled=false
 ENV path.data=/elasticsearch-persistent-data/
 
 USER root
@@ -24,8 +25,8 @@ ADD startup.sh /
 
 COPY hspell-data-files /var/lib/hspell-data-files
 
+# RUN elasticsearch-plugin remove x-pack
 # install hebmorph plugin
-RUN elasticsearch-plugin remove x-pack
 RUN elasticsearch-plugin install --verbose https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
 
 EXPOSE 9200
