@@ -10,7 +10,7 @@ ENV xpack.security.enabled=false
 ENV xpack.monitoring.enabled=false
 ENV path.data=/elasticsearch-persistent-data/
 
-USER root
+#USER root
 RUN apk add --update --no-cache sudo 
 RUN mkdir -p /elasticsearch-persistent-data/ && chown elasticsearch.elasticsearch /elasticsearch-persistent-data/ -R && chmod a+w -R /elasticsearch-persistent-data/
 RUN echo '%root ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/root
@@ -27,7 +27,7 @@ COPY hspell-data-files /var/lib/hspell-data-files
 # install hebmorph plugin
 RUN elasticsearch-plugin install --verbose https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
 
-USER elasticsearch
+#USER elasticsearch
 
 
 EXPOSE 9200
