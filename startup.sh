@@ -3,4 +3,4 @@
 sudo chown elasticsearch.elasticsearch -R /elasticsearch-persistent-data/
 sudo chmod a+w -R /elasticsearch-persistent-data/
 
-/bin/bash bin/es-docker
+/docker-entrypoint.sh elasticsearch
