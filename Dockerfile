@@ -16,3 +16,6 @@ COPY hspell-data-files /var/lib/hspell-data-files
 # install hebmorph plugin
 RUN elasticsearch-plugin install --verbose https://bintray.com/synhershko/elasticsearch-analysis-hebrew/download_file?file_path=elasticsearch-analysis-hebrew-$ELASTICSEARCH_ANALYSIS_HEBREW_VERSION.zip
 
+# upgrade packages to fix this bug: https://bugs.alpinelinux.org/issues/7093 (encountered on upgrade to kubernetes 1.9)
+RUN apk update && apk upgrade
+
